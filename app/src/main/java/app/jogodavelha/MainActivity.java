@@ -1,5 +1,6 @@
 package app.jogodavelha;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -7,6 +8,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -67,11 +69,13 @@ public class MainActivity extends AppCompatActivity {
             button.setText("X");
             jogador = 2; //assim que termina a vez dele, muda a vez plara o jogador 02
             vencedor = jogador01;
+            checarJogada(1);
         } else {
             matriz[x][y] = 2;
             button.setText("O");
             jogador = 1;
             vencedor = jogador02;
+            checarJogada(2);
         }
 
         quantidade++; // quantidade de jogadas são incrementadas até o limite de jogadas possíveis
@@ -97,6 +101,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return false;
+    }
+
+    public void checarJogada(int x){
+        StringBuilder sb = new StringBuilder();
+        if (vitoria(x)){
+            AlertDialog.Builder alertaVenceu = new AlertDialog.Builder(this);
+            alertaVenceu.setTitle("VITÓRIA!!");
+            alertaVenceu.setMessage("O jogador " + vencedor + " venceu.");
+            //alertaVenceu.setIcon(android.R.drawable.star_on) //adiciona icone
+            alertaVenceu.setPositiveButton("Ok", null); // no lugar do null, posso colocar new DialogInterface.OnClickListener() para adicionar alguma função
+            alertaVenceu.create();
+            alertaVenceu.show();
+        }
+    }
+
+    public void fimJogo(){
+        for (int i = 0; i < 9; i++){
+            button[i].setEnabled(false);
+        }
     }
 
 }
