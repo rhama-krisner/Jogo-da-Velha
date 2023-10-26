@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_principal, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == id) {
             Toast.makeText(this, "Novo Jogo", Toast.LENGTH_SHORT).show();
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         quantidade = 1;
         jogador = 1;
         button = new Button[9];
+
+        //adicionar os 9 botoes sem precisar ficar repetindo código
         for (int i = 0; i < 9; i++) {
             String buttonID = "bt0" + (i + 1);
             int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
@@ -55,6 +58,45 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void jogada(Button button, int x, int y) {
+        button.setEnabled(true);
 
+        //Faz o processamento da vez de quem vai jogar
+        if (jogador == 1) { //se for a vez do jogador 01
+            matriz[x][y] = 1; //identifica ba matriz, qual foi o botão pressionado
+            button.setText("X");
+            jogador = 2; //assim que termina a vez dele, muda a vez plara o jogador 02
+            vencedor = jogador01;
+        } else {
+            matriz[x][y] = 2;
+            button.setText("O");
+            jogador = 1;
+            vencedor = jogador02;
+        }
+
+        quantidade++; // quantidade de jogadas são incrementadas até o limite de jogadas possíveis
+    }
+
+    public Boolean vitoria(int x){
+        //Aqui verifica se na matriz de botões, se as posições têm o mesmo valor,
+        //caso tenha, teremos um vencedor.
+        for (int i = 0; i < matriz.length; i++){
+            if (matriz[i][1] == x && matriz[i][1] == x && matriz[i][2] == x){
+                return true;
+            }
+            if (matriz[0][i] == x && matriz[1][i] == x && matriz[2][i] == x){
+                return true;
+            }
+        }
+
+        if (matriz[0][0] == x && matriz[1][1] == x && matriz[2][2] == x){
+            return true;
+        }
+        if (matriz[0][2] == x && matriz[1][1] == x && matriz[2][0] == x){
+            return true;
+        }
+
+        return false;
+    }
 
 }
