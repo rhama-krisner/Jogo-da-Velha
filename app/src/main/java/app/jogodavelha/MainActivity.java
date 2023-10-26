@@ -7,12 +7,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,91 +27,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        quantidade=1;
-        jogador=1;
-        botao[0] = findViewById(R.id.bt01);
-        botao[1] = findViewById(R.id.bt02);
-        botao[2] = findViewById(R.id.bt03);
-        botao[3] = findViewById(R.id.bt04);
-        botao[4] = findViewById(R.id.bt05);
-        botao[5] = findViewById(R.id.bt06);
-        botao[6] = findViewById(R.id.bt07);
-        botao[7] = findViewById(R.id.bt08);
-        botao[8] = findViewById(R.id.bt09);
+        quantidade = 1;
+        jogador = 1;
 
-        botao[0].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                jogada(botao[0],0,0);
-            }
-        });
+        int[] buttonIds = {R.id.bt01, R.id.bt02, R.id.bt03, R.id.bt04, R.id.bt05, R.id.bt06, R.id.bt07, R.id.bt08, R.id.bt09};
+        int[][] buttonPositions = {{0,0}, {0,1}, {0,2}, {1,0}, {1,1}, {1,2}, {2,0}, {2,1}, {2,2}};
 
-        botao[1].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                jogada(botao[1],0,1);
+        for (int i = 0; i < botao.length; i++) {
+            botao[i] = findViewById(buttonIds[i]);
+            final int finalI = i;
+            botao[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    jogada(botao[finalI], buttonPositions[finalI][0], buttonPositions[finalI][1]);
+                }
+            });
+        }
 
-            }
-        });
-
-        botao[2].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                jogada(botao[2],0,2);
-
-            }
-        });
-
-        botao[3].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                jogada(botao[3],1,0);
-
-            }
-        });
-
-        botao[4].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                jogada(botao[4],1,1);
-
-            }
-        });
-
-        botao[5].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                jogada(botao[5],1,2);
-
-            }
-        });
-
-        botao[6].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                jogada(botao[6],2,0);
-
-            }
-        });
-
-        botao[7].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                jogada(botao[7],2,1);
-
-            }
-        });
-
-        botao[8].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                jogada(botao[8],2,2);
-
-            }
-        });
-
-
+        // buttonIds para armazenam os IDs dos botões e
+        // buttonPositions para armazenar as posições correspondentes dos botões.
+        // o loop for para percorre cada botão.
+        // Para cada botão o OnClickListener chama a função jogada com os parâmetros apropriados.
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
