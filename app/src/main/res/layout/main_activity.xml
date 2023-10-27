@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    android:elevation="10dp">
+
+
+    <ImageView
+        android:id="@+id/imagemLogo"
+        android:layout_width="331dp"
+        android:layout_height="253dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/jogo_da_velha" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="331dp"
+        android:layout_height="355dp"
+        android:layout_marginTop="24dp"
+        android:alpha="1.0"
+        android:background="@drawable/gradient"
+        android:elevation="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagemLogo" />
+
+    <Button
+        android:id="@+id/comecar_partida"
+        android:layout_width="331dp"
+        android:layout_height="65dp"
+        android:backgroundTint="@color/amarelo"
+        android:elevation="10px"
+        android:text="@string/nova_partida"
+        android:textColor="@color/lilas"
+        app:cornerRadius="25px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/nome_dos_jogadores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="50dp"
+        android:text="@string/nome_dos_jogadores"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:layout_constraintVertical_bias="0.045" />
+
+    <EditText
+        android:id="@+id/player1"
+        android:layout_width="298dp"
+        android:layout_height="70dp"
+        android:elevation="50dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Jogador 1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/nome_dos_jogadores"
+        app:layout_constraintVertical_bias="0.098" />
+
+    <EditText
+        android:id="@+id/player2"
+        android:layout_width="298dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="124dp"
+        android:elevation="50dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Jogador 2"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText"
+        app:layout_constraintVertical_bias="0.1" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
