@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Jogo da Velha</string>
     <string name="novo_jogo">Novo Jogo</string>
+    <string name="nova_partida">Começar Partida</string>
+    <string name="recomecar">Recomeçar</string>
+    <string name="nome_dos_jogadores">Nome dos Jogadores</string>
 </resources>
