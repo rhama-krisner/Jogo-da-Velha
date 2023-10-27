@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
 
         novaPartida();
+        historico();
     }
 
     private void novaPartida(){
@@ -41,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("jogador01", jogador01);
             intent.putExtra("jogador02", jogador02);
 
+            startActivity(intent);
+        });
+    }
+
+    private void historico(){
+        Button btn_historico = findViewById(R.id.historico);
+        Intent intent = new Intent(this, HistoricoActivity.class);
+        btn_historico.setOnClickListener(view -> {
             startActivity(intent);
         });
     }

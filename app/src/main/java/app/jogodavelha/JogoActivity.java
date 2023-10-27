@@ -44,9 +44,7 @@ public class JogoActivity extends AppCompatActivity {
         definicaoDeBotoes();
         recomecar();
         novoJogo();
-
         atualizarNomeJogador();
-
     }
 
 
@@ -153,27 +151,10 @@ public class JogoActivity extends AppCompatActivity {
         }
     }
 
-    public void limpar() {
-        for (int i = 0; i < 9; i++) {
-            botao[i].setEnabled(true);
-            botao[i].setText("");
-        }
-
-        for (int x = 0; x < 3; x++) {
-            for (int y = 0; y < 3; y++) {
-                matriz[x][y] = 0;
-            }
-        }
-        jogador = 1;
-        jogador01 = "";
-        jogador02 = "";
-        vencedor = "";
-    }
-
     private void recomecar() {
         Button btn_recomecar = findViewById(R.id.btn_recomecar);
         btn_recomecar.setOnClickListener(view -> {
-            limpar();
+            recreate();
         });
     }
 

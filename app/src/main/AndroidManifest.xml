@@ -22,6 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".JogoActivity" />
+        <activity android:name=".HistoricoActivity"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
