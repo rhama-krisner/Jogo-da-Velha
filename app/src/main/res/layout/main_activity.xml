@@ -31,7 +31,7 @@
 
     <Button
         android:id="@+id/comecar_partida"
-        android:layout_width="331dp"
+        android:layout_width="330dp"
         android:layout_height="65dp"
         android:backgroundTint="@color/amarelo"
         android:elevation="10px"
@@ -58,13 +58,14 @@
         app:layout_constraintVertical_bias="0.045" />
 
     <EditText
-        android:id="@+id/player1"
-        android:layout_width="298dp"
+        android:id="@+id/edit_text_player1"
+        android:layout_width="300dp"
         android:layout_height="70dp"
         android:elevation="50dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Jogador 1"
+        android:text="@string/jogador_1"
+        android:textSize="20sp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="@+id/view"
@@ -74,21 +75,22 @@
         app:layout_constraintVertical_bias="0.098" />
 
     <EditText
-        android:id="@+id/player2"
-        android:layout_width="298dp"
+        android:id="@+id/edit_text_player2"
+        android:layout_width="300dp"
         android:layout_height="70dp"
         android:layout_marginBottom="124dp"
         android:elevation="50dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Jogador 2"
+        android:text="@string/jogador_2"
         android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintTop_toBottomOf="@+id/nome_dos_jogadores"
+        app:layout_constraintVertical_bias="0.899" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

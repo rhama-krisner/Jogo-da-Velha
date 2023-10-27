@@ -1,12 +1,16 @@
 package app.jogodavelha;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -22,6 +26,11 @@ public class JogoActivity extends AppCompatActivity {
     private String jogador01;
     private String jogador02;
 
+    private int vermelho = Color.parseColor("#EF5350");
+
+    private int azul = Color.parseColor("#0336FF");
+    private TextView nomeJogadorTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,22 +39,26 @@ public class JogoActivity extends AppCompatActivity {
         quantidade = 1;
         jogador = 1;
 
+        nomeJogadorTextView = findViewById(R.id.nome_jogador_da_vez);
+
         definicaoDeBotoes();
+        recomecar();
+        novoJogo();
+
+        atualizarNomeJogador();
 
     }
 
-    private void definicaoDeBotoes(){
+
+    private void definicaoDeBotoes() {
         int[] buttonIds = {R.id.bt01, R.id.bt02, R.id.bt03, R.id.bt04, R.id.bt05, R.id.bt06, R.id.bt07, R.id.bt08, R.id.bt09};
-        int[][] buttonPositions = {{0,0}, {0,1}, {0,2}, {1,0}, {1,1}, {1,2}, {2,0}, {2,1}, {2,2}};
+        int[][] buttonPositions = {{0, 0}, {0, 1}, {0, 2}, {1, 0}, {1, 1}, {1, 2}, {2, 0}, {2, 1}, {2, 2}};
 
         for (int i = 0; i < botao.length; i++) {
             botao[i] = findViewById(buttonIds[i]);
             final int finalI = i;
-            botao[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    jogada(botao[finalI], buttonPositions[finalI][0], buttonPositions[finalI][1]);
-                }
+            botao[i].setOnClickListener(view -> {
+                jogada(botao[finalI], buttonPositions[finalI][0], buttonPositions[finalI][1]);
             });
         }
 
@@ -56,97 +69,60 @@ public class JogoActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public void jogada(Button b, int x, int y) {
+        Intent intent = getIntent();
+        String jogador1 = intent.getStringExtra("jogador01");
+        String jogador2 = intent.getStringExtra("jogador02");
 
-        getMenuInflater().inflate(R.menu.menu_principal,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (item.getItemId() == R.id.novoJogo) {
-            limpar();
-            final EditText editText2 = new EditText(this);
-            AlertDialog.Builder segundoJogador = new AlertDialog.Builder(this);
-            segundoJogador.setMessage("Digite o nome do jogador 2: ");
-            segundoJogador.setTitle("JOGADOR 2");
-            segundoJogador.setView(editText2);
-            segundoJogador.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    jogador02 = editText2.getText().toString();
-                }
-            });
-            segundoJogador.create();
-            segundoJogador.show();
-
-            final EditText editText = new EditText(this);
-            AlertDialog.Builder primeiroJogador = new AlertDialog.Builder(this);
-            primeiroJogador.setMessage("Digite o nome do jogador 1: ");
-            primeiroJogador.setTitle("JOGADOR 1");
-            primeiroJogador.setView(editText);
-            primeiroJogador.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    jogador01 = editText.getText().toString();
-                }
-            });
-            primeiroJogador.create();
-            primeiroJogador.show();
-
-
-            //Toast.makeText(getApplicationContext(),"inicializa novo jogo",Toast.LENGTH_LONG).show();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void jogada(Button b,int x, int y){
         b.setEnabled(true);
-        if(jogador==1){
-            matriz[x][y]=1;
+        if (jogador == 1) {
+            matriz[x][y] = 1;
             b.setText("X");
-            jogador=2;
-            vencedor=jogador01;
+            b.setTextColor(vermelho);
+            b.setTextSize(70);
+            jogador = 2;
+            vencedor = jogador1;
             checarJogada(1);
-        }
-        else{
-            matriz[x][y]=2;
+        } else {
+            matriz[x][y] = 2;
             b.setText("O");
-            jogador=1;
-            vencedor=jogador02;
+            b.setTextColor(azul);
+            b.setTextSize(70);
+            jogador = 1;
+            vencedor = jogador2;
             checarJogada(2);
 
         }
         quantidade++;
+        atualizarNomeJogador();
+
+        b.setEnabled(false);
     }
 
-    public boolean vitoria(int x){
+    public boolean vitoria(int x) {
 
-        for(int i=0;i<matriz.length;i++){
+        for (int i = 0; i < matriz.length; i++) {
 
-            if(matriz[i][0]==x && matriz[i][1]==x && matriz[i][2]==x){
+            if (matriz[i][0] == x && matriz[i][1] == x && matriz[i][2] == x) {
                 return true;
             }
-            if(matriz[0][i]==x && matriz[1][i]==x && matriz[2][i]==x){
+            if (matriz[0][i] == x && matriz[1][i] == x && matriz[2][i] == x) {
                 return true;
             }
         }
-        if(matriz[0][0]==x && matriz[1][1]==x && matriz[2][2]==x){
+        if (matriz[0][0] == x && matriz[1][1] == x && matriz[2][2] == x) {
             return true;
         }
-        if(matriz[0][2]==x && matriz[1][1]==x && matriz[2][0]==x){
+        if (matriz[0][2] == x && matriz[1][1] == x && matriz[2][0] == x) {
             return true;
         }
         return false;
 
     }
 
-    public void checarJogada(int x){
+    public void checarJogada(int x) {
 
-        if(vitoria(x)){
+        if (vitoria(x)) {
 
             AlertDialog.Builder alertaVenceu = new AlertDialog.Builder(this);
             alertaVenceu.setTitle("VITÓRIA");
@@ -156,30 +132,70 @@ public class JogoActivity extends AppCompatActivity {
             alertaVenceu.create();
             alertaVenceu.show();
             fimJogo();
+        } else if (quantidade == 9) {
+            if (!vitoria(1) && !vitoria(2)){
+                AlertDialog.Builder alertaVenceu = new AlertDialog.Builder(this);
+                alertaVenceu.setTitle("EMPATE");
+                alertaVenceu.setMessage("Não houve vencedor.");
+                alertaVenceu.setIcon(android.R.drawable.star_on);
+                alertaVenceu.setPositiveButton("OK", null);
+                alertaVenceu.create();
+                alertaVenceu.show();
+                fimJogo();
+            }
         }
 
     }
 
-    public void fimJogo(){
-        for(int i=0;i<9;i++){
+    public void fimJogo() {
+        for (int i = 0; i < 9; i++) {
             botao[i].setEnabled(false);
         }
     }
 
-    public void limpar(){
-        for(int i=0;i<9;i++){
+    public void limpar() {
+        for (int i = 0; i < 9; i++) {
             botao[i].setEnabled(true);
             botao[i].setText("");
         }
 
-        for(int x=0;x<3;x++){
-            for(int y=0;y<3;y++){
-                matriz[x][y]=0;
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                matriz[x][y] = 0;
             }
         }
-        jogador=1;
-        jogador01="";
-        jogador02="";
-        vencedor="";
+        jogador = 1;
+        jogador01 = "";
+        jogador02 = "";
+        vencedor = "";
+    }
+
+    private void recomecar() {
+        Button btn_recomecar = findViewById(R.id.btn_recomecar);
+        btn_recomecar.setOnClickListener(view -> {
+            limpar();
+        });
+    }
+
+    private void novoJogo() {
+        Button btn_novo = findViewById(R.id.btn_novo_jogo);
+        btn_novo.setOnClickListener(view -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    private void atualizarNomeJogador() {
+        Intent intent = getIntent();
+        String jogador1 = intent.getStringExtra("jogador01");
+        String jogador2 = intent.getStringExtra("jogador02");
+
+        if (jogador == 1) {
+            nomeJogadorTextView.setText(jogador1);
+            nomeJogadorTextView.setTextColor(vermelho);
+        } else {
+            nomeJogadorTextView.setText(jogador2);
+            nomeJogadorTextView.setTextColor(azul);
+        }
     }
 }
